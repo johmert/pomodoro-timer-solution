@@ -119,7 +119,7 @@ function Pomodoro() {
         </div>
       </div>
       <Controls isTimerRunning={isTimerRunning} playPause={playPause}/>
-      <SessionProgress session={session}/>
+      <SessionProgress session={session} time={minutesToDuration(25)}/>
     </div>
   );
 }
