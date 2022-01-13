@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import classNames from "../utils/class-names";
 import useInterval from "../utils/useInterval";
+import { minutesToDuration } from "../utils/duration";
 import Controls from "./Controls";
 import Duration from "./Duration";
 import SessionProgress from "./SessionProgress";
@@ -57,8 +57,8 @@ function Pomodoro() {
   const [session, setSession] = useState(null);
 
   // ToDo: Allow the user to adjust the focus and break duration.
-  const focusDuration = 25;
-  const breakDuration = 5;
+  const [focusDuration, setFocusDuration] = useState(25);
+  const [breakDuration, setBreakDuration] = useState(5);
 
   /**
    * Custom hook that invokes the callback function every second
@@ -102,11 +102,11 @@ function Pomodoro() {
     <div className="pomodoro">
       <div className="row">
         <div className="col">
-          <Duration label="Focus" time="25:00"  />
+          <Duration label="Focus" time={minutesToDuration(focusDuration)}  />
         </div>
         <div className="col">
           <div className="float-right">
-            <Duration label="Break" time="5:00" />
+            <Duration label="Break" time={minutesToDuration(breakDuration)} />
           </div>
         </div>
       </div>

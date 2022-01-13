@@ -1,5 +1,4 @@
 import React from "react";
-import classNames from "../utils/class-names";
 
 function SessionProgress({session}) {
     return (
