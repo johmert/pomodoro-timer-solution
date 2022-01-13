@@ -60,6 +60,14 @@ function Pomodoro() {
   const [focusDuration, setFocusDuration] = useState(25);
   const [breakDuration, setBreakDuration] = useState(5);
 
+  const handleFocusDurationChange =  change  => {
+    setFocusDuration(currentFocusDuration => currentFocusDuration + change);
+  };
+
+  const handleBreakDurationChange =  change  => {
+    setBreakDuration(currentBreakDuration => currentBreakDuration + change);
+  };
+
   /**
    * Custom hook that invokes the callback function every second
    *
@@ -102,11 +110,11 @@ function Pomodoro() {
     <div className="pomodoro">
       <div className="row">
         <div className="col">
-          <Duration label="Focus" time={minutesToDuration(focusDuration)}  />
+          <Duration label="focus" time={minutesToDuration(focusDuration)}  handleDurationChange={handleFocusDurationChange} />
         </div>
         <div className="col">
           <div className="float-right">
-            <Duration label="Break" time={minutesToDuration(breakDuration)} />
+            <Duration label="break" time={minutesToDuration(breakDuration)} handleDurationChange={handleBreakDurationChange} />
           </div>
         </div>
       </div>
