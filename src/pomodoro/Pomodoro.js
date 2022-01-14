@@ -32,23 +32,7 @@ function nextTick(prevState) {
  * @returns
  *  function to update the session state.
  */
-function nextSession(focusDuration, breakDuration) {
-  /**
-   * State function to transition the current session type to the next session. e.g. On Break -> Focusing or Focusing -> On Break
-   */
-  return (currentSession) => {
-    if (currentSession.label === "Focusing") {
-      return {
-        label: "On Break",
-        timeRemaining: breakDuration * 60,
-      };
-    }
-    return {
-      label: "Focusing",
-      timeRemaining: focusDuration * 60,
-    };
-  };
-}
+
 
 function Pomodoro() {
   // Timer starts out paused
@@ -56,17 +40,51 @@ function Pomodoro() {
   // The current session - null where there is no session running
   const [session, setSession] = useState(null);
 
-  // ToDo: Allow the user to adjust the focus and break duration.
-  const [focusDuration, setFocusDuration] = useState(25);
-  const [breakDuration, setBreakDuration] = useState(5);
+  const initial = {focus : 25, break : 5}
 
-  const handleFocusDurationChange =  change  => {
-    setFocusDuration(currentFocusDuration => currentFocusDuration + change);
+  const [focusDuration, setFocusDuration] = useState(initial.focus);
+  const [breakDuration, setBreakDuration] = useState(initial.break);
+  const [progressTime, setProgressTime] = useState(focusDuration);
+
+  const handleDurationChange =  (change, mode)  => {
+    const focusMax = 60;
+    const focusMin = 5;
+    const breakMax = 15;
+    const breakMin = 1;
+    
+    if(mode === "focus"){
+      change < 0 ? 
+        setFocusDuration(currentFocusDuration => Math.max(currentFocusDuration + change, focusMin)) :
+        setFocusDuration(currentFocusDuration => Math.min(currentFocusDuration + change, focusMax));
+      setProgressTime(focusDuration);
+    } else if(mode === "break"){
+      change < 0 ?
+        setBreakDuration(currentBreakDuration => Math.max(currentBreakDuration + change, breakMin)) :
+        setBreakDuration(currentBreakDuration => Math.min(currentBreakDuration + change, breakMax));
+      setProgressTime(breakDuration);
+    }
   };
 
-  const handleBreakDurationChange =  change  => {
-    setBreakDuration(currentBreakDuration => currentBreakDuration + change);
-  };
+
+  function nextSession(focusDuration, breakDuration) {
+    /**
+     * State function to transition the current session type to the next session. e.g. On Break -> Focusing or Focusing -> On Break
+     */
+    return (currentSession) => {
+      if (currentSession.label === "Focusing") {
+        setProgressTime(breakDuration);
+        return {
+          label: "On Break",
+          timeRemaining: breakDuration * 60,
+        };
+      }
+      setProgressTime(focusDuration);
+      return {
+        label: "Focusing",
+        timeRemaining: focusDuration * 60,
+      };
+    };
+  }
 
   /**
    * Custom hook that invokes the callback function every second
@@ -110,16 +128,16 @@ function Pomodoro() {
     <div className="pomodoro">
       <div className="row">
         <div className="col">
-          <Duration label="focus" time={minutesToDuration(focusDuration)}  handleDurationChange={handleFocusDurationChange} />
+          <Duration mode="focus" time={minutesToDuration(focusDuration)}  handleDurationChange={handleDurationChange} />
         </div>
         <div className="col">
           <div className="float-right">
-            <Duration label="break" time={minutesToDuration(breakDuration)} handleDurationChange={handleBreakDurationChange} />
+            <Duration mode="break" time={minutesToDuration(breakDuration)} handleDurationChange={handleDurationChange} />
           </div>
         </div>
       </div>
       <Controls isTimerRunning={isTimerRunning} playPause={playPause}/>
-      <SessionProgress session={session} time={minutesToDuration(25)}/>
+      <SessionProgress session={session} time={minutesToDuration(progressTime)}/>
     </div>
   );
 }

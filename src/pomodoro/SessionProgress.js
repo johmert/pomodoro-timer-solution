@@ -1,5 +1,5 @@
 import React from "react";
-import { minutesToDuration, secondsToDuration } from "../utils/duration";
+import { secondsToDuration } from "../utils/duration";
 
 function SessionProgress({session, time}) {
   const countdown = secondsToDuration(session?.timeRemaining);

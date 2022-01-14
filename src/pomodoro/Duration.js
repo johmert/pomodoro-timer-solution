@@ -1,20 +1,20 @@
 import React from "react";
 
-function Duration({label, time, handleDurationChange}) {
+function Duration({mode, time, handleDurationChange}) {
   
   function handleChange(event) {
 		switch(event.target.dataset.testid) {
 			case "decrease-focus": 
-        handleDurationChange(-5); 
+        handleDurationChange(-5, "focus"); 
         break;
 			case "increase-focus": 
-        handleDurationChange(5); 
+        handleDurationChange(5, "focus"); 
         break;
 			case "decrease-break": 
-        handleDurationChange(-1); 
+        handleDurationChange(-1, "break"); 
         break;
 			case "increase-break": 
-        handleDurationChange(1); 
+        handleDurationChange(1, "break"); 
         break;
 			default: 
         console.log("Something went wrong! Check Duration.js handleChange()"); 
@@ -25,14 +25,14 @@ function Duration({label, time, handleDurationChange}) {
   return (
         <div className="input-group input-group-lg mb-2">
         <span className="input-group-text" data-testid="duration-focus">
-            {label.charAt(0).toUpperCase() + label.slice(1)} Duration: {time}
+            {mode.charAt(0).toUpperCase() + mode.slice(1)} Duration: {time}
         </span>
         <div className="input-group-append">
           {/* TODO: Implement decreasing focus duration and disable during a focus or break session */}
           <button
             type="button"
             className="btn btn-secondary"
-            data-testid={`decrease-${label}`}
+            data-testid={`decrease-${mode}`}
             onClick={handleChange}
           >
             <span className="oi oi-minus" />
@@ -41,7 +41,7 @@ function Duration({label, time, handleDurationChange}) {
           <button
             type="button"
             className="btn btn-secondary"
-            data-testid={`increase-${label}`}
+            data-testid={`increase-${mode}`}
             onClick={handleChange}
           >
             <span className="oi oi-plus" />
