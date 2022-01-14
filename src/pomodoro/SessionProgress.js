@@ -6,7 +6,6 @@ function SessionProgress({session, time, isTimerRunning}) {
   const countdown = secondsToDuration(session?.timeRemaining);
   const showTimeRemaining = countdown + " remaining";
   const percent = (session?.timeRemaining / (time * 60)) * 100;
-  console.log(percent);
 
   return (
     <div>
