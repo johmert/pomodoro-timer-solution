@@ -24,7 +24,7 @@ function Duration({mode, time, handleDurationChange, isTimerRunning}) {
   
   return (
         <div className="input-group input-group-lg mb-2">
-        <span className="input-group-text" data-testid="duration-focus">
+        <span className="input-group-text" data-testid={`duration-${mode}`}>
             {mode.charAt(0).toUpperCase() + mode.slice(1)} Duration: {time}
         </span>
         <div className="input-group-append">

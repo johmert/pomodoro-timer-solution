@@ -2,10 +2,10 @@ import React from "react";
 import { minutesToDuration, secondsToDuration } from "../utils/duration";
 
 function SessionProgress({session, time, isTimerRunning}) {
-  if(!isTimerRunning) return null;
+  if(!session) return null;
   const countdown = secondsToDuration(session?.timeRemaining);
   const showTimeRemaining = countdown + " remaining";
-  const percent = (session?.timeRemaining / (time * 60)) * 100;
+  const percent = 100 - ((session?.timeRemaining / (time * 60)) * 100);
 
   return (
     <div>
