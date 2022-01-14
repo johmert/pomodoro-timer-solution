@@ -3,7 +3,7 @@ import React from "react";
 function Duration({mode, time, handleDurationChange}) {
   
   function handleChange(event) {
-		switch(event.target.dataset.testid) {
+		switch(event.currentTarget.dataset.testid) {
 			case "decrease-focus": 
         handleDurationChange(-5, "focus"); 
         break;
