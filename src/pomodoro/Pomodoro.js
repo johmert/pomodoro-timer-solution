@@ -135,11 +135,11 @@ function Pomodoro() {
     <div className="pomodoro">
       <div className="row">
         <div className="col">
-          <Duration mode="focus" time={minutesToDuration(focusDuration)}  handleDurationChange={handleDurationChange} />
+          <Duration mode="focus" time={minutesToDuration(focusDuration)}  handleDurationChange={handleDurationChange} isTimerRunning={isTimerRunning} />
         </div>
         <div className="col">
           <div className="float-right">
-            <Duration mode="break" time={minutesToDuration(breakDuration)} handleDurationChange={handleDurationChange} />
+            <Duration mode="break" time={minutesToDuration(breakDuration)} handleDurationChange={handleDurationChange} isTimerRunning={isTimerRunning} />
           </div>
         </div>
       </div>

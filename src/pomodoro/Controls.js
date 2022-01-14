@@ -1,15 +1,11 @@
 import React from "react";
 import classNames from "../utils/class-names";
 
-
-
  /**
    * Called whenever the play/pause button is clicked.
    */
 
-
 function Controls({isTimerRunning, playPause, stopSession}) {
-
     return (
         <div className="row">
         <div className="col">
@@ -33,8 +29,6 @@ function Controls({isTimerRunning, playPause, stopSession}) {
                 })}
               />
             </button>
-            {/* TODO: Implement stopping the current focus or break session. and disable the stop button when there is no active session */}
-            {/* TODO: Disable the stop button when there is no active session */}
             <button
               type="button"
               className="btn btn-secondary"

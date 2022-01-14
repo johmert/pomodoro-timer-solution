@@ -1,6 +1,6 @@
 import React from "react";
 
-function Duration({mode, time, handleDurationChange}) {
+function Duration({mode, time, handleDurationChange, isTimerRunning}) {
   
   function handleChange(event) {
 		switch(event.currentTarget.dataset.testid) {
@@ -34,6 +34,7 @@ function Duration({mode, time, handleDurationChange}) {
             className="btn btn-secondary"
             data-testid={`decrease-${mode}`}
             onClick={handleChange}
+            disabled={isTimerRunning}
           >
             <span className="oi oi-minus" />
           </button>
@@ -43,6 +44,7 @@ function Duration({mode, time, handleDurationChange}) {
             className="btn btn-secondary"
             data-testid={`increase-${mode}`}
             onClick={handleChange}
+            disabled={isTimerRunning}
           >
             <span className="oi oi-plus" />
           </button>
