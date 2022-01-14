@@ -44,7 +44,6 @@ function Pomodoro() {
 
   const [focusDuration, setFocusDuration] = useState(initial.focus);
   const [breakDuration, setBreakDuration] = useState(initial.break);
-  const [progressTime, setProgressTime] = useState(focusDuration);
 
   const handleDurationChange =  (change, mode)  => {
     const focusMax = 60;
@@ -56,12 +55,10 @@ function Pomodoro() {
       change < 0 ? 
         setFocusDuration(currentFocusDuration => Math.max(currentFocusDuration + change, focusMin)) :
         setFocusDuration(currentFocusDuration => Math.min(currentFocusDuration + change, focusMax));
-      setProgressTime(focusDuration);
     } else if(mode === "break"){
       change < 0 ?
         setBreakDuration(currentBreakDuration => Math.max(currentBreakDuration + change, breakMin)) :
         setBreakDuration(currentBreakDuration => Math.min(currentBreakDuration + change, breakMax));
-      setProgressTime(breakDuration);
     }
   };
 
@@ -72,16 +69,16 @@ function Pomodoro() {
      */
     return (currentSession) => {
       if (currentSession.label === "Focusing") {
-        setProgressTime(breakDuration);
         return {
           label: "On Break",
           timeRemaining: breakDuration * 60,
+          time : breakDuration
         };
       }
-      setProgressTime(focusDuration);
       return {
         label: "Focusing",
         timeRemaining: focusDuration * 60,
+        time : focusDuration
       };
     };
   }
@@ -115,6 +112,7 @@ function Pomodoro() {
             return {
               label: "Focusing",
               timeRemaining: focusDuration * 60,
+              time : focusDuration
             };
           }
           return prevStateSession;
@@ -137,7 +135,7 @@ function Pomodoro() {
         </div>
       </div>
       <Controls isTimerRunning={isTimerRunning} playPause={playPause}/>
-      <SessionProgress session={session} time={minutesToDuration(progressTime)}/>
+      <SessionProgress session={session} time={minutesToDuration(session?.time)}/>
     </div>
   );
 }
