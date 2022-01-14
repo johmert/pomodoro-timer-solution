@@ -28,7 +28,6 @@ function Duration({mode, time, handleDurationChange, isTimerRunning}) {
             {mode.charAt(0).toUpperCase() + mode.slice(1)} Duration: {time}
         </span>
         <div className="input-group-append">
-          {/* TODO: Implement decreasing focus duration and disable during a focus or break session */}
           <button
             type="button"
             className="btn btn-secondary"
@@ -38,7 +37,6 @@ function Duration({mode, time, handleDurationChange, isTimerRunning}) {
           >
             <span className="oi oi-minus" />
           </button>
-          {/* TODO: Implement increasing focus duration and disable during a focus or break session */}
           <button
             type="button"
             className="btn btn-secondary"
