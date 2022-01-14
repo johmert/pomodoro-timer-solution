@@ -6,6 +6,7 @@ function SessionProgress({session, time, isTimerRunning}) {
   const countdown = secondsToDuration(session?.timeRemaining);
   const showTimeRemaining = countdown + " remaining";
   const percent = 100 - ((session?.timeRemaining / (time * 60)) * 100);
+  const paused = isTimerRunning ? "none" : "block";
 
   return (
     <div>
@@ -17,6 +18,7 @@ function SessionProgress({session, time, isTimerRunning}) {
         <p className="lead" data-testid="session-sub-title">
           {showTimeRemaining}
         </p>
+        <h2 style={{display: `${paused}`}}>PAUSED</h2>
       </div>
     </div>
     <div className="row mb-2">
