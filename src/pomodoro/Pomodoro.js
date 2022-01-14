@@ -124,6 +124,13 @@ function Pomodoro() {
     });
   }
 
+  function stopSession(){
+    setIsTimerRunning(false);
+    setSession(null);
+    setFocusDuration(initial.focus);
+    setBreakDuration(initial.break);
+  }
+
   return (
     <div className="pomodoro">
       <div className="row">
@@ -136,7 +143,7 @@ function Pomodoro() {
           </div>
         </div>
       </div>
-      <Controls isTimerRunning={isTimerRunning} playPause={playPause}/>
+      <Controls isTimerRunning={isTimerRunning} playPause={playPause} stopSession={stopSession}/>
       <SessionProgress session={session} time={session?.time} isTimerRunning={isTimerRunning}/>
     </div>
   );

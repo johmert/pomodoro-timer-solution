@@ -8,7 +8,7 @@ import classNames from "../utils/class-names";
    */
 
 
-function Controls({isTimerRunning, playPause}) {
+function Controls({isTimerRunning, playPause, stopSession}) {
 
     return (
         <div className="row">
@@ -40,6 +40,8 @@ function Controls({isTimerRunning, playPause}) {
               className="btn btn-secondary"
               data-testid="stop"
               title="Stop the session"
+              onClick={stopSession}
+              disabled={!isTimerRunning}
             >
               <span className="oi oi-media-stop" />
             </button>
