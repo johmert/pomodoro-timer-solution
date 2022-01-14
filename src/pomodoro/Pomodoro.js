@@ -109,12 +109,14 @@ function Pomodoro() {
           // If the timer is starting and the previous session is null,
           // start a focusing session.
           if (prevStateSession === null) {
+            setIsTimerRunning(true);
             return {
               label: "Focusing",
               timeRemaining: focusDuration * 60,
               time : focusDuration
             };
           }
+          setIsTimerRunning(!isTimerRunning);
           return prevStateSession;
         });
       }
@@ -135,7 +137,7 @@ function Pomodoro() {
         </div>
       </div>
       <Controls isTimerRunning={isTimerRunning} playPause={playPause}/>
-      <SessionProgress session={session} time={minutesToDuration(session?.time)}/>
+      <SessionProgress session={session} time={session?.time} isTimerRunning={isTimerRunning}/>
     </div>
   );
 }
